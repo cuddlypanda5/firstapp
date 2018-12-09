@@ -3,9 +3,20 @@ class SessionsController < ApplicationController
   end
 
   def create
-    render 'new'  # renders the new.html.erb view for Sessions
+    user = User.find_by(params[:email]) # find user somehow
+    if user #and (user.password == :password) # user exists AND has the correct login password
+      # Log the user in and redirect to the user's show page.
+      log_in(user)
+      redirect_to root_url
+    else
+      # error handling, display error message
+      flash.now[:danger] = ["Invalid username and/or password."]
+      render 'new'
+    end
   end
 
   def destroy
+  	log_out
+  	redirect_to root_url
   end
 end

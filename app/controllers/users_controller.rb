@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     if @user.save
         redirect_to user_url(@user)
     else
+      flash.now[:danger] = @user.errors.full_messages
       render 'new'
     end
   end
