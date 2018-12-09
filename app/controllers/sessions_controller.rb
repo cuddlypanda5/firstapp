@@ -3,8 +3,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(params[:email]) # find user somehow
-    if user #and (user.password == :password) # user exists AND has the correct login password
+    user = User.find_by(email: params[:session][:email].downcase) # find user somehow
+    if user && user.authenticate(params[:session][:password]) #and (user.password == :password) # user exists AND has the correct login password
       # Log the user in and redirect to the user's show page.
       log_in(user)
       redirect_to root_url

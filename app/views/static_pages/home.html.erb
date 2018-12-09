@@ -1,8 +1,25 @@
 <% provide(:title, "Home") %>
-<body>
-<h1>Home Page</h1>
-  <p>
-    This is my home page. Welcome.
-    <%= image_tag("/assets/spusle.png", :alt => "Spusle", style: 'height:30%;width:30%;') %>
-  </p>
-</body>
+
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4 col-md-offset-4">
+      <section class="user_info">
+        <h1><%= current_user.name %></h1>
+        <p><%= current_user.email %></p>
+        <span><%= link_to "view my profile", current_user %></span>
+      </section>
+      <section class="micropost_form">
+        <%= render 'microposts/micropost_form' %>
+      </section>
+    </aside>
+  </div>
+<% else %>
+	<body>
+	<h1>Home Page</h1>
+	  <p>
+	    This is my home page. Welcome.
+	    <%= image_tag("/assets/spusle.png", :alt => "Spusle", style: 'height:30%;width:30%;') %>
+	  </p>
+	</body>
+<% end %>
+
